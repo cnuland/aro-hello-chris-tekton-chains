@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-chris
+  namespace: openshift-gitops-operator
+spec:
+  destination:
+    namespace: openshift-gitops-operator
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: /k8s
+    repoURL: https://github.com/cnuland/hello-chris-tekton-chains.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - PruneLast=true

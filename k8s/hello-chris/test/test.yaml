@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   name: hello-chris-test
+  namespace: hello-chris
 spec:
   serviceAccountName: pipeline
   pipelineRef:

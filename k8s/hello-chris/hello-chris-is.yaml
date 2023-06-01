@@ -4,3 +4,4 @@ metadata:
   labels:
     application: hello-chris
   name: hello-chris
+  namespace: hello-chris

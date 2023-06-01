@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: buildah
+  namespace: hello-chris
 spec:
   description: |-
     Buildah task builds source into a container image and then pushes it to a container registry.

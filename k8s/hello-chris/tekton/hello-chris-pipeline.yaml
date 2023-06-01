@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: hello-chris-pipeline
+  namespace: hello-chris
 spec:
   workspaces:
   - name: shared-workspace
