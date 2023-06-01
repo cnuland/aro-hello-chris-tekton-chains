@@ -1,0 +1,14 @@
+{
+  "name": "hello-chris",
+  "version": "1.0.0",
+  "description": "Hello World Chris!",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnuland/hello-chris"
+  },
+  "author": "Chris Nuland"
+}

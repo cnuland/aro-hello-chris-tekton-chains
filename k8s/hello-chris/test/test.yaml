@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: hello-chris-test
+spec:
+  serviceAccountName: pipeline
+  pipelineRef:
+    name: hello-chris-pipeline
+  params:
+  - name: deployment-name
+    value: "hello-chris"
+  - name: git-url
+    value: "https://github.com/cnuland/hello-chris-tekton.git"
+  - name: git-revision
+    value: "master"
+  - name: IMAGE
+    value: "image-registry.openshift-image-registry.svc:5000/pipeline-test/hello-chris"
+  - name: TLSVERIFY
+    value: "false"
+  - name: working-dir
+    value: "hello-chris"
+  workspaces:
+  - name: shared-workspace
+    persistentvolumeclaim:
+      claimName: tekton-pvc

@@ -1,0 +1,62 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: hello-chris-pipeline
+spec:
+  workspaces:
+  - name: shared-workspace
+  params:
+  - name: deployment-name
+    type: string
+    description: name of the deployment to be patched
+  - name: git-url
+    type: string
+    description: url of the git repo for the code of deployment
+  - name: git-revision
+    type: string
+    description: revision to be used from repo of the code for deployment
+    default: "master"
+  - name: IMAGE
+    type: string
+    description: image to be built from the code
+  - name: TLSVERIFY
+    type: string
+    default: "false"
+    description: tls verification
+  - name: working-dir
+    type: string
+    default: ""
+    description: default working directory to build from
+  tasks:
+  - name: fetch-repository
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    workspaces:
+    - name: output
+      workspace: shared-workspace
+    params:
+    - name: url
+      value: $(params.git-url)
+    - name: deleteExisting
+      value: "true"
+    - name: revision
+      value: $(params.git-revision)
+  - name: build-image
+    taskRef:
+      name: buildah
+      kind: Task
+    params:
+    - name: IMAGE
+      value: $(params.IMAGE)
+    - name: TLSVERIFY
+      value: $(params.TLSVERIFY)
+    - name: DOCKERFILE
+      value: "./$(params.working-dir)/Dockerfile"
+    workspaces:
+    - name: output
+      workspace: shared-workspace
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - fetch-repository
