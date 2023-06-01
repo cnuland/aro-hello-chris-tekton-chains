@@ -1,0 +1,5 @@
+resources:
+- namespace/openshift-gitops-operator.yaml
+- operator/openshift-gitops-operator.yaml
+- gitops/application.yaml
+- gitops/argocd.yaml
