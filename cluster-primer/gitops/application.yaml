@@ -9,7 +9,10 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: /k8s
+    directory:
+      jsonnet: {}
+      recurse: true
+    path: k8s
     repoURL: https://github.com/cnuland/hello-chris-tekton-chains.git
     targetRevision: main
   syncPolicy:
