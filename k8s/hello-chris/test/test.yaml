@@ -11,15 +11,15 @@ spec:
   - name: deployment-name
     value: "hello-chris"
   - name: git-url
-    value: "https://github.com/cnuland/hello-chris-tekton.git"
+    value: "https://github.com/cnuland/hello-chris-tekton-chains.git"
   - name: git-revision
     value: "master"
   - name: IMAGE
-    value: "image-registry.openshift-image-registry.svc:5000/pipeline-test/hello-chris"
+    value: "image-registry.openshift-image-registry.svc:5000/hello-chris/hello-chris"
   - name: TLSVERIFY
     value: "false"
   - name: working-dir
-    value: "hello-chris"
+    value: "app"
   workspaces:
   - name: shared-workspace
     persistentvolumeclaim:
