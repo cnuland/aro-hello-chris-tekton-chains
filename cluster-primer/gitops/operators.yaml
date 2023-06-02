@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hello-chris
+  name: operators
   namespace: openshift-gitops
 spec:
   destination:
@@ -9,7 +9,7 @@ spec:
     namespace: '*'
     server: 'https://kubernetes.default.svc'
   source:
-    path: k8s/hello-chris
+    path: k8s/operators
     repoURL: 'https://github.com/cnuland/hello-chris-tekton-chains.git'
     targetRevision: HEAD
     directory:
