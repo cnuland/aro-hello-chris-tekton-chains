@@ -1,5 +1,6 @@
 resources:
 - namespace/openshift-gitops-operator.yaml
 - operator/openshift-gitops-operator.yaml
-- gitops/application.yaml
-- gitops/operators.yaml
+- gitops/app/application.yaml
+- gitops/infra/kyverno.yaml
+- gitops/infra/pipelines.yaml
