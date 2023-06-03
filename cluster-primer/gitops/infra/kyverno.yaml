@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno
+  namespace: openshift-gitops
+spec:
+  destination:
+    name: ''
+    namespace: '*'
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: k8s/operators/kyverno/overlays/default
+    repoURL: 'https://github.com/cnuland/hello-chris-tekton-chains.git'
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  sources:
+    kustomize:
+      version: v3.5.4
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

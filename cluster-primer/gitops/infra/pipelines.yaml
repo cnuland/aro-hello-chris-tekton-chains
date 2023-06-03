@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: operators
+  name: pipelines
   namespace: openshift-gitops
 spec:
   destination:
@@ -9,12 +9,14 @@ spec:
     namespace: '*'
     server: 'https://kubernetes.default.svc'
   source:
-    path: k8s/operators
+    path: k8s/operators/openshift-pipelines/overlays/default
     repoURL: 'https://github.com/cnuland/hello-chris-tekton-chains.git'
     targetRevision: HEAD
     directory:
       recurse: true
-  sources: []
+  sources:
+    kustomize:
+      version: v3.5.4
   project: default
   syncPolicy:
     automated:
