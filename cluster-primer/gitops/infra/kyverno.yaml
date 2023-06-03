@@ -14,9 +14,7 @@ spec:
     targetRevision: HEAD
     directory:
       recurse: true
-  sources:
-    kustomize:
-      version: v3.5.4
+  sources: []
   project: default
   syncPolicy:
     automated:
