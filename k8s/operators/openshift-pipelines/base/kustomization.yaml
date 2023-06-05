@@ -4,3 +4,4 @@ kind: Kustomization
 
 resources:
   - openshift-pipelines.yaml
+  - chains.yaml
