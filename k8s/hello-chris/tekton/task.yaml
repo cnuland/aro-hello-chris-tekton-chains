@@ -60,13 +60,30 @@ spec:
       buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
         $(params.BUILD_EXTRA_ARGS) --format=$(params.FORMAT) \
         --tls-verify=$(params.TLSVERIFY) --no-cache \
-        -f $(params.DOCKERFILE) -t $(params.IMAGE) $(params.CONTEXT) 
+        -f $(params.DOCKERFILE) -t $(params.IMAGE) $(params.CONTEXT)
 
       [[ "$(params.SKIP_PUSH)" == "true" ]] && echo "Push skipped" && exit 0
 
+      if [[ "$(workspaces.dockerconfig.bound)" == "true" ]]; then
+
+        # if config.json exists at workspace root, we use that
+        if test -f "$(workspaces.dockerconfig.path)/config.json"; then
+          export DOCKER_CONFIG="$(workspaces.dockerconfig.path)"
+
+        # else we look for .dockerconfigjson at the root
+        elif test -f "$(workspaces.dockerconfig.path)/.dockerconfigjson"; then
+          cp "$(workspaces.dockerconfig.path)/.dockerconfigjson" "$HOME/.docker/config.json"
+          export DOCKER_CONFIG="$HOME/.docker"
+
+        # need to error out if neither files are present
+        else
+          echo "neither 'config.json' nor '.dockerconfigjson' found at workspace root"
+          exit 1
+        fi
+      fi
+
       buildah --storage-driver=$(params.STORAGE_DRIVER) push \
         $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
-        --authfile /etc/secrets/config.json \
         --digestfile $(workspaces.source.path)/image-digest $(params.IMAGE) \
         docker://$(params.IMAGE)
       cat $(workspaces.source.path)/image-digest | tee /tekton/results/IMAGE_DIGEST
@@ -78,7 +95,7 @@ spec:
     - mountPath: /var/lib/containers
       name: varlibcontainers
     - name: quay-auth-secret
-      mountPath: /etc/secrets
+      mountPath: $(workspaces.dockerconfig.path)
       readOnly: true
     workingDir: $(workspaces.output.path)
   volumes:
@@ -93,5 +110,8 @@ spec:
   workspaces:
   - name: output  
   - name: source
-  - name: dockerconfig
+  - description: An optional workspace that allows providing a .docker/config.json
+      file for Buildah to access the container registry. The file should be placed
+      at the root of the Workspace with name config.json or .dockerconfigjson.
+    name: dockerconfig
     optional: true

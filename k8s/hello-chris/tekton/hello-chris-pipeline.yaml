@@ -59,5 +59,7 @@ spec:
       workspace: shared-workspace
     - name: source
       workspace: shared-workspace
+    - name: dockerconfig
+      workspace: shared-workspace
     runAfter:
     - fetch-repository
