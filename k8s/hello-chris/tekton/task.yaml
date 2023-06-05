@@ -64,23 +64,7 @@ spec:
 
       [[ "$(params.SKIP_PUSH)" == "true" ]] && echo "Push skipped" && exit 0
 
-      if [[ "$(workspaces.source.bound)" == "true" ]]; then
-
-        # if config.json exists at workspace root, we use that
-        if test -f "$(workspaces.source.path)/config.json"; then
-          export DOCKER_CONFIG="$(workspaces.source.path)"
-
-        # else we look for .dockerconfigjson at the root
-        elif test -f "$(workspaces.source.path)/.dockerconfigjson"; then
-          cp "$(workspaces.source.path)/.dockerconfigjson" "$HOME/.docker/config.json"
-          export DOCKER_CONFIG="$HOME/.docker"
-
-        # need to error out if neither files are present
-        else
-          echo "neither 'config.json' nor '.dockerconfigjson' found at workspace root"
-          exit 1
-        fi
-      fi
+      export DOCKER_CONFIG="/etc/secrets"
 
       buildah --storage-driver=$(params.STORAGE_DRIVER) push \
         $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
@@ -95,7 +79,7 @@ spec:
     - mountPath: /var/lib/containers
       name: varlibcontainers
     - name: quay-auth-secret
-      mountPath: $(workspaces.source.path)
+      mountPath: /etc/secrets
       readOnly: true
     workingDir: $(workspaces.output.path)
   volumes:
