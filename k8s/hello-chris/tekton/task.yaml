@@ -94,3 +94,4 @@ spec:
   - name: output  
   - name: source
   - name: dockerconfig
+    optional: true
