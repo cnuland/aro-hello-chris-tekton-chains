@@ -94,10 +94,19 @@ spec:
     volumeMounts:
     - mountPath: /var/lib/containers
       name: varlibcontainers
+    - name: quay-auth-secret
+      mountPath: $(workspaces.dockerconfig.path)
+      readOnly: true
     workingDir: $(workspaces.output.path)
   volumes:
   - emptyDir: {}
     name: varlibcontainers
+  - name: quay-auth-secret
+    secret:
+      secretName: dockerconfigjson
+      items:
+        - key: .dockerconfigjson
+          path: config.json
   workspaces:
   - name: output  
   - name: source

@@ -15,9 +15,9 @@ spec:
   - name: git-revision
     value: "main"
   - name: IMAGE
-    value: "image-registry.openshift-image-registry.svc:5000/hello-chris/hello-chris"
+    value: "quay.io/repository/cnuland/hello-chris"
   - name: TLSVERIFY
-    value: "false"
+    value: "true"
   - name: working-dir
     value: "app"
   workspaces:
