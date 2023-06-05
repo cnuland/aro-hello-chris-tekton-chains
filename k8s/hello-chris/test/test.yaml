@@ -15,7 +15,7 @@ spec:
   - name: git-revision
     value: "main"
   - name: IMAGE
-    value: "quay.io/repository/cnuland/hello-chris"
+    value: "quay.io/cnuland/hello-chris"
   - name: TLSVERIFY
     value: "true"
   - name: working-dir
