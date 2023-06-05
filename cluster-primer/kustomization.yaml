@@ -1,6 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 resources:
 - namespace/openshift-gitops-operator.yaml
 - operator/openshift-gitops-operator.yaml
-- gitops/app/application.yaml
+- gitops/app/hello-chris.yaml
 - gitops/infra/kyverno.yaml
 - gitops/infra/pipelines.yaml

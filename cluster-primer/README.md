@@ -3,7 +3,7 @@ This folder has all the assets needed to prime the cluster for using the GitOps 
 
 Run this command from your commandline within this folder
 
-`oc apply -Rf .`
+`oc apply -k .`
 
 
 ## TODO
