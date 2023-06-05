@@ -4,7 +4,6 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/kyverno/kyverno/release-1.6/config/release/install.yaml
-  - namespace.yaml
   - image-check.yaml
 
 patches:

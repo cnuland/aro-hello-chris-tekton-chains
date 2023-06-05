@@ -13,10 +13,10 @@ spec:
     repoURL: 'https://github.com/cnuland/hello-chris-tekton-chains.git'
     targetRevision: HEAD
     directory:
-      recurse: true
+      recurse: false
   sources: []
   project: default
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true
