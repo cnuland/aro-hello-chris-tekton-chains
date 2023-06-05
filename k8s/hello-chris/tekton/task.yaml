@@ -64,21 +64,7 @@ spec:
 
       [[ "$(params.SKIP_PUSH)" == "true" ]] && echo "Push skipped" && exit 0
 
-      # if config.json exists at workspace root, we use that
-      if test -f "/etc/secrets/config.json"; then
-        export DOCKER_CONFIG="/etc/secrets"
-
-      # else we look for .dockerconfigjson at the root
-      elif test -f "/etc/secrets/.dockerconfigjson"; then
-        cp "/etc/secrets/.dockerconfigjson" "$HOME/.docker/config.json"
-        export DOCKER_CONFIG="$HOME/.docker"
-
-      # need to error out if neither files are present
-      else
-        echo "neither 'config.json' nor '.dockerconfigjson' found at workspace root"
-        exit 1
-      fi
-      
+      export DOCKER_CONFIG="/etc/secrets"
 
       buildah --storage-driver=$(params.STORAGE_DRIVER) push \
         $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
