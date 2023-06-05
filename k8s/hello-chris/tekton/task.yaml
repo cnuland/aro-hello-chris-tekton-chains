@@ -64,7 +64,7 @@ spec:
 
       [[ "$(params.SKIP_PUSH)" == "true" ]] && echo "Push skipped" && exit 0
 
-      export REGISTRY_AUTH_FILE="//$(HOME)/secrets/config.json"
+      export REGISTRY_AUTH_FILE="$HOME/secrets/config.json"
       buildah --storage-driver=$(params.STORAGE_DRIVER) push \
         $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
         --digestfile $(workspaces.source.path)/image-digest $(params.IMAGE) \
