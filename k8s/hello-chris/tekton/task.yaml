@@ -64,7 +64,7 @@ spec:
 
       [[ "$(params.SKIP_PUSH)" == "true" ]] && echo "Push skipped" && exit 0
 
-      export REGISTRY_AUTH_FILE="/etc/secrets"
+      export REGISTRY_AUTH_FILE="/etc/secrets/config.json"
       echo "OHHHHHHHHHH $($REGISTRY_AUTH_FILE)"
       buildah --storage-driver=$(params.STORAGE_DRIVER) push \
         $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
