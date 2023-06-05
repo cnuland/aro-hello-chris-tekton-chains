@@ -57,20 +57,11 @@ spec:
     name: build-and-push
     resources: {}
     script: |
+      export DOCKER_CONFIG="/etc/secrets"
       buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
         $(params.BUILD_EXTRA_ARGS) --format=$(params.FORMAT) \
         --tls-verify=$(params.TLSVERIFY) --no-cache \
         -f $(params.DOCKERFILE) -t $(params.IMAGE) $(params.CONTEXT)
-
-      [[ "$(params.SKIP_PUSH)" == "true" ]] && echo "Push skipped" && exit 0
-
-      export DOCKER_CONFIG="/etc/secrets"
-
-      buildah --storage-driver=$(params.STORAGE_DRIVER) push \
-        $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
-        --digestfile $(workspaces.source.path)/image-digest $(params.IMAGE) \
-        docker://$(params.IMAGE)
-      cat $(workspaces.source.path)/image-digest | tee /tekton/results/IMAGE_DIGEST
     securityContext:
       capabilities:
         add:
@@ -94,3 +85,4 @@ spec:
   workspaces:
   - name: output  
   - name: source
+  - name: dockerconfig
