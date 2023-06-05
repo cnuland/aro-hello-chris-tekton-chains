@@ -64,9 +64,9 @@ spec:
 
       [[ "$(params.SKIP_PUSH)" == "true" ]] && echo "Push skipped" && exit 0
 
-      export REGISTRY_AUTH_FILE="$(workspaces.output.path)/secrets/config.json"
       buildah --storage-driver=$(params.STORAGE_DRIVER) push \
         $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
+        --authfile /workspace/output/secrets/config.json \
         --digestfile $(workspaces.source.path)/image-digest $(params.IMAGE) \
         docker://$(params.IMAGE)
       cat $(workspaces.source.path)/image-digest | tee /tekton/results/IMAGE_DIGEST
