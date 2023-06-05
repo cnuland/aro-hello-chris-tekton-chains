@@ -64,15 +64,15 @@ spec:
 
       [[ "$(params.SKIP_PUSH)" == "true" ]] && echo "Push skipped" && exit 0
 
-      if [[ "$(workspaces.dockerconfig.bound)" == "true" ]]; then
+      if [[ "$(workspaces.source.bound)" == "true" ]]; then
 
         # if config.json exists at workspace root, we use that
-        if test -f "$(workspaces.dockerconfig.path)/config.json"; then
-          export DOCKER_CONFIG="$(workspaces.dockerconfig.path)"
+        if test -f "$(workspaces.source.path)/config.json"; then
+          export DOCKER_CONFIG="$(workspaces.source.path)"
 
         # else we look for .dockerconfigjson at the root
-        elif test -f "$(workspaces.dockerconfig.path)/.dockerconfigjson"; then
-          cp "$(workspaces.dockerconfig.path)/.dockerconfigjson" "$HOME/.docker/config.json"
+        elif test -f "$(workspaces.source.path)/.dockerconfigjson"; then
+          cp "$(workspaces.source.path)/.dockerconfigjson" "$HOME/.docker/config.json"
           export DOCKER_CONFIG="$HOME/.docker"
 
         # need to error out if neither files are present
@@ -95,7 +95,7 @@ spec:
     - mountPath: /var/lib/containers
       name: varlibcontainers
     - name: quay-auth-secret
-      mountPath: $(workspaces.dockerconfig.path)
+      mountPath: $(workspaces.source.path)
       readOnly: true
     workingDir: $(workspaces.output.path)
   volumes:
