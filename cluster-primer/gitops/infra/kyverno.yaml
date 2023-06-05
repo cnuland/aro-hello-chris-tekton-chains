@@ -6,7 +6,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: '*'
+    namespace: 'kyverno'
     server: 'https://kubernetes.default.svc'
   source:
     path: k8s/operators/kyverno/overlays/default
