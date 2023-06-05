@@ -12,3 +12,13 @@ oc apply -k cluster-primer
 oc create secret generic git-ssh --from-literal=username=<username>
 --from-literal=password=<dev_token>
 ```
+
+* This demo uses quay as the repository to test the tekton chain OCI functionality. You will need to create a repository credential secret, even if your image is public. The buildah `Task` will use the following secret format. Highly recommend using a quay robot account instead of your actual quay username/password.
+
+```
+oc create secret docker-registry dockerconfigjson \
+  --docker-server=quay.io \
+  --docker-username=<your robot username> \
+  --docker-password=<your robot password> \
+  --docker-email=test@acme.com 
+  ```
