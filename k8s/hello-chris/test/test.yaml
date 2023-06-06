@@ -8,6 +8,8 @@ spec:
   pipelineRef:
     name: hello-chris-pipeline
   params:
+  - name: namespace
+    value: "hello-chris"
   - name: deployment-name
     value: "hello-chris"
   - name: git-url

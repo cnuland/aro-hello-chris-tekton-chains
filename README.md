@@ -29,12 +29,14 @@ oc create secret docker-registry dockerconfigjson \
 ```
 cosign generate-key-pair k8s://${NAMESPACE}/cosign
 ```
+
 2) Retrieve the private key
 
 ```
 kubectl get secret -n ${NAMESPACE} cosign -o jsonpath='{.data.cosign\.key}' | base64 -d > cosign.key
 ```
 
-note: I followed this [blog post](https://rcarrata.com/kubernetes/sign-images-1/) for the above process
-
 * You will need to add your own public key from the above step to the `ClusterPolicy` found in the kyverno operator directory [image-check.yaml](/k8s/operators/kyverno/base/image-check.yaml)
+
+* Follow the instructions for adding an OCI repository to Tekton Chains
+[here](https://docs.openshift.com/container-platform/4.10/cicd/pipelines/using-tekton-chains-for-openshift-pipelines-supply-chain-security.html#creating-and-verifying-task-run-signatures-without-any-additional-authentication_using-tekton-chains-for-openshift-pipelines-supply-chain-security)
