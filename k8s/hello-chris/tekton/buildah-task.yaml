@@ -55,6 +55,7 @@ spec:
     results:
   - name: APP_IMAGE_URL
     description: URL of the image just built.
+    type: string
   steps:
   - image: $(params.BUILDER_IMAGE)
     name: build-and-push
