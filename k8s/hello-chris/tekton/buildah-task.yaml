@@ -52,7 +52,6 @@ spec:
   - description: Digest of the image just built.
     name: APP_IMAGE_DIGEST
     type: string
-    results:
   - name: APP_IMAGE_URL
     description: URL of the image just built.
     type: string
