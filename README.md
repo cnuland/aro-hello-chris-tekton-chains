@@ -22,3 +22,19 @@ oc create secret docker-registry dockerconfigjson \
   --docker-password=<your robot password> \
   --docker-email=test@acme.com 
   ```
+
+* Install [cosign](https://docs.sigstore.dev/cosign/installation/) on your machine to generate the necessary keypairs.
+
+1) generate keypair, where `NAMESPACE` is set to the namespace where the Tekton pipeline will run
+```
+cosign generate-key-pair k8s://${NAMESPACE}/cosign
+```
+2) Retrieve the private key
+
+```
+kubectl get secret -n ${NAMESPACE} cosign -o jsonpath='{.data.cosign\.key}' | base64 -d > cosign.key
+```
+
+note: I followed this [blog post](https://rcarrata.com/kubernetes/sign-images-1/) for the above process
+
+* You will need to add your own public key from the above step to the `ClusterPolicy` found in the kyverno operator directory [image-check.yaml](/k8s/operators/kyverno/base/image-check.yaml)
