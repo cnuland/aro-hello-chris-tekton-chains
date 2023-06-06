@@ -64,19 +64,19 @@ spec:
       workspace: shared-workspace
     runAfter:
     - fetch-repository
-  - name: sign-image
-    params:
-      - name: image
-        value: $(params.IMAGE)
-      - name: namespace
-        value: $(params.namespace)
-      - name: cosignkey
-        value: cosign
-    runAfter:
-      - build-image
-    taskRef:
-      kind: Task
-      name: cosign
-    workspaces:
-      - name: source
-        workspace: shared-workspace
+#  - name: sign-image
+#    params:
+#      - name: image
+#        value: $(params.IMAGE)
+#      - name: namespace
+#        value: $(params.namespace)
+#      - name: cosignkey
+#        value: cosign
+#    runAfter:
+#      - build-image
+#    taskRef:
+#      kind: Task
+#      name: cosign
+#    workspaces:
+#      - name: source
+#        workspace: shared-workspace
