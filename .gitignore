@@ -1,3 +1,6 @@
 /openshift.local.clusterup
 hello-chris-secret.yaml
 hello-chris-np.yaml
+/k8s/hello-chris/test/cosign.key
+/k8s/hello-chris/test/cosign.pub
+
