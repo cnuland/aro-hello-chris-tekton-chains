@@ -7,3 +7,5 @@ resources:
 - gitops/app/hello-chris.yaml
 - gitops/infra/kyverno.yaml
 - gitops/infra/pipelines.yaml
+- gitops/rbac/cluster-role-gitops.yaml
+- gitops/rbac/cluster-rolebinding-gitops.yaml
