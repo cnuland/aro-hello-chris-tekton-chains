@@ -15,6 +15,7 @@ oc create secret generic git-ssh --from-literal=username=<username>
 
 * This demo uses quay as the repository to test the tekton chain OCI functionality. You will need to create a repository credential secret, even if your image is public. The buildah `Task` will use the following secret format. Highly recommend using a quay robot account instead of your actual quay username/password. This secret needs to be created on both the `hello-chris` and `kyverno` namespaces.
 
+1)
 ```
 oc create secret docker-registry dockerconfigjson \
   --docker-server=quay.io \
@@ -22,6 +23,11 @@ oc create secret docker-registry dockerconfigjson \
   --docker-password=<your robot password> \
   --docker-email=test@acme.com 
   ```
+
+2)
+```
+oc patch serviceaccount pipeline -p "{\"imagePullSecrets\": [{\"name\": \"dockerconfigjson\"}]}"
+```
 
 * Install [cosign](https://docs.sigstore.dev/cosign/installation/) on your machine to generate the necessary keypairs.
 
