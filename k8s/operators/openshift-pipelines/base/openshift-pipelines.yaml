@@ -9,4 +9,3 @@ spec:
   name: openshift-pipelines-operator-rh
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: openshift-pipelines-operator.v1.10.3
