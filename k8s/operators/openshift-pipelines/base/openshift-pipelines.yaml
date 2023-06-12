@@ -4,7 +4,7 @@ metadata:
   name: openshift-pipelines-operator
   namespace: openshift-operators
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook: Sync
 spec:
   channel: latest
   installPlanApproval: Automatic
