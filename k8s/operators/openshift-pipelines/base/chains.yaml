@@ -2,5 +2,7 @@ apiVersion: operator.tekton.dev/v1alpha1
 kind: TektonChain
 metadata:
   name: chain
+  annotations:
+    argocd.argoproj.io/hook: PostSync
 spec:
   targetNamespace: openshift-pipelines

@@ -3,6 +3,10 @@ kind: Application
 metadata:
   name: pipelines
   namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "1"
+
 spec:
   destination:
     name: ''
