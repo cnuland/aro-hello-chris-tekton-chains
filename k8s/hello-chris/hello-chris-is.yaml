@@ -3,5 +3,6 @@ kind: ImageStream
 metadata:
   labels:
     application: hello-chris
+    env: development
   name: hello-chris
   namespace: hello-chris
