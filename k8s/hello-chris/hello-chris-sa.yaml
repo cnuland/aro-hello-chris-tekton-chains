@@ -4,5 +4,7 @@ kind: ServiceAccount
 metadata:
   name: pipeline
   namespace: hello-chris
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 secrets:
 - name: git-ssh

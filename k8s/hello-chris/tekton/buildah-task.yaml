@@ -3,6 +3,8 @@ kind: Task
 metadata:
   name: buildah
   namespace: hello-chris
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   description: |-
     Buildah task builds source into a container image and then pushes it to a container registry.

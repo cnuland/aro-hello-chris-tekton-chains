@@ -4,6 +4,8 @@ kind: NetworkPolicy
 metadata:
   name: allow-all-ingress
   namespace: hello-chris
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   podSelector: {}
   ingress:

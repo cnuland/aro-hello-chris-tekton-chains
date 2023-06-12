@@ -29,6 +29,20 @@ patches:
       kind: Namespace
       name: kyverno
   - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: {"argocd.argoproj.io/sync-wave": "1"}
+    target:
+      kind: Deployment
+      name: kyverno
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: {"argocd.argoproj.io/sync-wave": "1"}
+    target:
+      kind: ConfigMap
+      name: kyverno
+  - patch: |-
       - op: replace
         path: /data/resourceFilters
         value: '[Event,*,*][*,kube-system,*][*,kube-public,*][*,kube-node-lease,*][Node,*,*][APIService,*,*][TokenReview,*,*][SubjectAccessReview,*,*][SelfSubjectAccessReview,*,*][*,kyverno,kyverno*][*,openshift,*][*,openshift-*,*][*,open-cluster-*,*][Binding,*,*][ReplicaSet,*,*][ReportChangeRequest,*,*][ClusterReportChangeRequest,*,*][PolicyReport,*,*][ClusterPolicyReport,*,*]'
