@@ -4,6 +4,7 @@ metadata:
   name: require-tekton-namespace-pipelinerun
   annotations:
     argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
     policies.kyverno.io/title: Require Namespace for Tekton PipelineRun
     policies.kyverno.io/category: Tekton
     policies.kyverno.io/severity: medium

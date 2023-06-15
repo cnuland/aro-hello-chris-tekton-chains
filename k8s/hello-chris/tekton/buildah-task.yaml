@@ -5,6 +5,7 @@ metadata:
   namespace: hello-chris
   annotations:
     argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
 spec:
   description: |-
     Buildah task builds source into a container image and then pushes it to a container registry.
