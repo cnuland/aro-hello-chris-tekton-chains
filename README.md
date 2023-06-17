@@ -29,6 +29,18 @@ oc create secret docker-registry dockerconfigjson \
 oc patch serviceaccount pipeline -p "{\"imagePullSecrets\": [{\"name\": \"dockerconfigjson\"}]}"
 ```
 
+* Modify Tekton Chains Config
+Make sure to modify the the tekton chains config found in the openshift-pipelines namespace.
+`oc edit cm chains-config -n openshift-pipelines'
+
+```
+data:
+  artifacts.oci.signer: x509
+  artifacts.taskrun.format: in-toto
+  artifacts.taskrun.storage: oci
+  transparency.enabled: "true"
+```
+
 * Install [cosign](https://docs.sigstore.dev/cosign/installation/) on your machine to generate the necessary keypairs.
 
 1) generate keypair. IMPORTANT - the secret generated below is not in the correct format and needs to be modified before Chains can use it.
@@ -40,7 +52,7 @@ oc patch serviceaccount pipeline -p "{\"imagePullSecrets\": [{\"name\": \"docker
 2) Retrieve the private key
 
 ```
-kubectl get secret -n ${NAMESPACE} cosign -o jsonpath='{.data.cosign\.key}' | base64 -d > cosign.key
+oc get secret -n ${NAMESPACE} cosign -o jsonpath='{.data.cosign\.key}' | base64 -d > cosign.key
 ```
 
 3) The cosign.key file needs to be modified so that the ENCRYPTION is of type COSIGN and not SIGSTORE
