@@ -35,7 +35,7 @@ Make sure to modify the the tekton chains config found in the openshift-pipeline
 
 ```
 data:
-  artifacts.oci.signer: x509
+  artifacts.oci.signer: cosign
   artifacts.taskrun.format: in-toto
   artifacts.taskrun.storage: oci
   transparency.enabled: "true"
