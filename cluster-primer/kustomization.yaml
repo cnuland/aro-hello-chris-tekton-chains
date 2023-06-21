@@ -10,7 +10,7 @@ resources:
 - gitops/infra/kyverno.yaml
 - gitops/infra/pipelines.yaml
 - gitops/infra/infra-secrets.yaml
-- gitops/infra/azure-key.yaml.yaml
+- gitops/infra/azure-key.yaml
 - gitops/rbac/cluster-role-gitops.yaml
 - gitops/rbac/cluster-rolebinding-gitops.yaml
 patches:
@@ -23,10 +23,10 @@ patches:
       value:
         kind: ServiceAccount
         name: secrets-store-csi-driver
-        namespace: k8s-secrets-store-csi`
+        namespace: k8s-secrets-store-csi
     - op: add
       path: /subjects/1
       value:
         kind: ServiceAccount
         name: csi-secrets-store-provider-azure
-        namespace: k8s-secrets-store-csi`
+        namespace: k8s-secrets-store-csi

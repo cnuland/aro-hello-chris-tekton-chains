@@ -21,7 +21,7 @@ oc create secret docker-registry dockerconfigjson \
   --docker-server=quay.io \
   --docker-username=<your robot username> \
   --docker-password=<your robot password> \
-  --docker-email=test@acme.com 
+  --docker-email=test@acme.com
   ```
 
 2)
@@ -58,7 +58,7 @@ oc delete pod <pod name> -n openshift-pipelines
 2) Retrieve the private key
 
 ```
-oc get secret -n ${NAMESPACE} cosign -o jsonpath='{.data.cosign\.key}' | base64 -d > cosign.key
+oc get secret -n ${NAMESPACE} signing-secrets -o jsonpath='{.data.cosign\.key}' | base64 -d > cosign.key
 ```
 
 3) The cosign.key file needs to be modified so that the ENCRYPTION is of type COSIGN and not SIGSTORE
@@ -68,6 +68,23 @@ oc get secret -n ${NAMESPACE} cosign -o jsonpath='{.data.cosign\.key}' | base64 
 5) Create the secret with the correct formatting
 ```
 oc create secret generic signing-secrets --from-file=cosign.key=cosign.key --from-literal=cosign.password=<your cosign password> --from-literal=cosign.pub=cosign.pub -n openshift-pipelines
+```
+
+* Change the configs for Tekton Chains to use the above steps secret
+
+```
+$ oc patch configmap chains-config -n openshift-pipelines -p='{"data":{"artifacts.taskrun.format": "in-toto"}}'
+
+$ oc patch configmap chains-config -n openshift-pipelines -p='{"data":{"artifacts.taskrun.storage": "oci"}}'
+
+$ oc patch configmap chains-config -n openshift-pipelines -p='{"data":{"transparency.enabled": "true"}}'
+```
+
+Delete the tekton chains controller `Pod` found in the openshift-pipelines so that the new configurations can be applied.
+
+```
+oc get pods | grep tekton-chains
+oc delete pod <pod-name>
 ```
 
 * You will need to add the public key from the above step to the `ClusterPolicy` found in the kyverno operator directory [image-check.yaml](/k8s/operators/kyverno/base/image-check.yaml)
