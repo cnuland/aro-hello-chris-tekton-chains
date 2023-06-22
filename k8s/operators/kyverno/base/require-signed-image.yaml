@@ -19,7 +19,7 @@ spec:
             kinds:
               - Pod
       verifyImages:
-      - image: ":*"
+      - image: "quay.io/cnuland/*:*"
         key: |-
           -----BEGIN PUBLIC KEY-----
           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpQxzkDKX4H6W0HkJZlmKjSQ4o+KH
