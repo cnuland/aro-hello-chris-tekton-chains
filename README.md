@@ -82,6 +82,7 @@ $ oc patch configmap chains-config -n openshift-pipelines -p='{"data":{"transpar
 
 Delete the tekton chains controller `Pod` found in the openshift-pipelines so that the new configurations can be applied.
 
+`NOTE` I had an error where the secret was not correctly picked up by the tekton-chains `Pod` after restarting the `Pod`. I had to bring the tekton-chains `Deployment` down to 0 and then back up to 1.
 ```
 oc get pods | grep tekton-chains
 oc delete pod <pod-name>
