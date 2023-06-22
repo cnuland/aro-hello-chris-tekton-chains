@@ -17,6 +17,15 @@ spec:
     targetRevision: HEAD
     directory:
       recurse: false
+  ignoreDifferences:
+  - group: kyverno.io
+    kind: ClusterPolicy
+    jsonPointers:
+    - /spec/rules
+  - group: kyverno.io
+    kind: Policy
+    jsonPointers:
+    - /spec/rules
   sources: []
   project: default
   syncPolicy:
