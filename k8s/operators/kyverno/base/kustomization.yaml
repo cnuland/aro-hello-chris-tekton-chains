@@ -21,17 +21,10 @@ patches:
         value: '--clientRateLimitBurst=350'
       - op: add
         path: /spec/template/spec/containers/0/args/-
-        value: 
-        containers:
-      - args:
-        - --imagePullSecrets=regcred
-        env:
-        - name: INIT_CONFIG
-          value: kyverno
+        value: '--imagePullSecrets=docker-registry'
     target:
       kind: Deployment
       name: kyverno
-
   - patch: |-
       - op: add
         path: /metadata/labels
