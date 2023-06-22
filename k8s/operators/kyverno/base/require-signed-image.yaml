@@ -1,5 +1,5 @@
 apiVersion: kyverno.io/v1
-kind: Policy
+kind: ClusterPolicy
 metadata:
   name: check-image
   namespace: hello-chris
