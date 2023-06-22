@@ -33,9 +33,6 @@ spec:
       verifyImages:
         - imageReferences:
           - "quay.io/cnuland/hello-chris*"
-          mutateDigest: true
-          required: true
-          verifyDigest: true
           attestors:
             - entries:
                 - keys:
