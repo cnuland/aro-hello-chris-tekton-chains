@@ -16,17 +16,29 @@ oc create secret generic git-ssh --from-literal=username=<username>
 * This demo uses quay as the repository to test the tekton chain OCI functionality. You will need to create a repository credential secret, even if your image is public. The buildah `Task` will use the following secret format. Highly recommend using a quay robot account instead of your actual quay username/password. This secret needs to be created on both the `hello-chris` and `kyverno` namespaces.
 
 1)
+Create the registry secret for both your app namespace, which in this example is hello-chris, and the kyverno namespace.
 ```
 oc create secret docker-registry dockerconfigjson \
   --docker-server=quay.io \
   --docker-username=<your robot username> \
   --docker-password=<your robot password> \
-  --docker-email=test@acme.com
+  --docker-email=test@acme.com -n <your-app-namespace>
+
+oc create secret docker-registry dockerconfigjson \
+  --docker-server=quay.io \
+  --docker-username=<your robot username> \
+  --docker-password=<your robot password> \
+  --docker-email=test@acme.com -n kyverno
   ```
 
+
 2)
+Patch the `ServiceAccount` that will be used to run the Tekton `PipelineRun`. In this repository, the example uses an `ServiceAcconut` titled pipeline. Kyverno will also need access to the repo to verify the signed image.
 ```
-oc patch serviceaccount pipeline -p "{\"imagePullSecrets\": [{\"name\": \"dockerconfigjson\"}]}"
+oc patch serviceaccount pipeline -p "{\"imagePullSecrets\": [{\"name\": \"dockerconfigjson\"}]}" -n <your-app-namespace>
+
+oc patch serviceaccount kyverno -p "{\"imagePullSecrets\": [{\"name\": \"dockerconfigjson\"}]}" -n kyverno
+
 ```
 
 * Modify Tekton Chains Config
