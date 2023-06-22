@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/component: hello-chris
     app.kubernetes.io/instance: hello-chris
   name: hello-chris
+  namespace: hello-chris
 spec:
   replicas: 1
   selector:
