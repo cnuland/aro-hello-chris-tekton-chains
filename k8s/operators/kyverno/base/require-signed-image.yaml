@@ -19,7 +19,7 @@ metadata:
       its signature against the provided public key. This policy serves as an illustration for
       how to configure a similar rule and will require replacing with your image(s) and keys.
 spec:
-  validationFailureAction: enforce
+  validationFailureAction: audit
   background: false
   webhookTimeoutSeconds: 30
   failurePolicy: Fail
@@ -33,6 +33,9 @@ spec:
       verifyImages:
       - imageReferences:
         - "*"
+        mutateDigest: true
+        required: true
+        verifyDigest: true
         attestors:
         - count: 1
           entries:
