@@ -5,8 +5,6 @@ kind: Kustomization
 resources:
   - https://github.com/kyverno/kyverno/releases/download/v1.9.5/install.yaml
   - require-namespace.yaml
-  - require-signed-image.yaml
-
 
 patches:
   - patch: |-
