@@ -30,8 +30,6 @@ spec:
           - resources:
               kinds:
                 - Pod
-              namespaces:
-                - "hello-chris"
       verifyImages:
         - imageReferences:
           - "quay.io/cnuland/hello-chris*"
