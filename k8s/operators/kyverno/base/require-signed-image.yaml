@@ -19,21 +19,27 @@ metadata:
       its signature against the provided public key. This policy serves as an illustration for
       how to configure a similar rule and will require replacing with your image(s) and keys.      
 spec:
-  validationFailureAction: audit
+  validationFailureAction: enforce
   background: false
+  webhookTimeoutSeconds: 30
+  failurePolicy: Fail
   rules:
-    - name: verify-image
+    - name: check-image
       match:
         any:
         - resources:
             kinds:
               - Pod
       verifyImages:
-      - image: "quay.io/cnuland/*:*"
+      - imageReferences:
+        - "quay.io/cnuland/hello-chris*"
         attestors:
-        - entries:
-          key: |-
-            -----BEGIN PUBLIC KEY-----
-            MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpQxzkDKX4H6W0HkJZlmKjSQ4o+KH
-            8aVqX87z+pU0lMWlvrAg+eJcK357ShgF6kDosHWmvBxyN6C6M4qN31sLDg==
-            -----END PUBLIC KEY-----
+        - count: 1
+          entries:
+          - keys:
+              publicKeys: |-
+                -----BEGIN PUBLIC KEY-----
+                MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpQxzkDKX4H6W0HkJZlmKjSQ4o+KH
+                8aVqX87z+pU0lMWlvrAg+eJcK357ShgF6kDosHWmvBxyN6C6M4qN31sLDg==
+                -----END PUBLIC KEY-----
+              
