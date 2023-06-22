@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-chris
+    app.kubernetes.io/component: hello-chris
+    app.kubernetes.io/instance: hello-chris
+  name: hello-chris
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: hello-chris
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        deployment: hello-chris
+    spec:
+      containers:
+      - image: 'quay.io/cnuland/hello-chris@sha256:f9e1d60079b45015811cfff71ba9e3e28a14aac8ba1e2394750b7b768b473809'
+        name: hello-chris
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+status: {}
