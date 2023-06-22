@@ -32,7 +32,7 @@ spec:
               - Pod
       verifyImages:
       - imageReferences:
-        - "*"
+        - "quay.io/cnuland/*"
         mutateDigest: true
         required: true
         verifyDigest: true
