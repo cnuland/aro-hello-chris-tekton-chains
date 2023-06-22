@@ -1,42 +1,29 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: allowed-image-repos
+  name: restrict-registries
   annotations:
     argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
-    policies.kyverno.io/title: Allowed Image Repositories
-    policies.kyverno.io/category: Other
-    policies.kyverno.io/severity: medium
-    kyverno.io/kyverno-version: 1.9.0
-    kyverno.io/kubernetes-version: "1.24"
+    policies.kyverno.io/title: Restrict Image Registries
     policies.kyverno.io/subject: Pod
     policies.kyverno.io/description: >-
-      In addition to restricting the image registry from which images are pulled, in some cases
-      and environments it may be required to also restrict which image repositories are used, 
-      for example in some restricted Namespaces. This policy ensures that the only allowed
-      image repositories present in a given Pod, across any container type, come from the
-      designated list.
+      Restrict image pulling only to whitelisted registries
 spec:
-  validationFailureAction: audit
-  background: false
+  validationFailureAction: enforce
+  background: true
   rules:
-    - name: good-repos
-      match:
-        any:
-        - resources:
-            kinds:
-              - Pod
-      validate:
-        message: >-
-          All images in this Pod must come from an authorized repository.
-        deny:
-          conditions:
-            all:
-            - key: "{{ images.[containers, initContainers, ephemeralContainers][].*.name[] }}"
-              operator: AnyNotIn
-              value:
-              - "registry.redhat.io/*"
-              - "access.redhat.com/*"
-              - "quay.io/*"
-              - kyverno
+  - name: validate-registries
+    match:
+      all:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - "hello-chris"
+    validate:
+      message: "Image registry not whitelisted"
+      pattern:
+        spec:
+          containers:
+          - image: "quay.io/cnuland/*"
