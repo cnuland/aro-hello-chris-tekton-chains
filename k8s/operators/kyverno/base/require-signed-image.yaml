@@ -19,32 +19,26 @@ metadata:
       its signature against the provided public key. This policy serves as an illustration for
       how to configure a similar rule and will require replacing with your image(s) and keys.
 spec:
-  webhookTimeoutSeconds: 15
-  validationFailureAction: audit
+  validationFailureAction: enforce
   background: false
+  webhookTimeoutSeconds: 30
+  failurePolicy: Fail
   rules:
-    - name: verify-image-signature
+    - name: check-image
       match:
-        resources: {}
         any:
-          - resources:
-              kinds:
-                - Pod
+        - resources:
+            kinds:
+              - Pod
       verifyImages:
-        - imageReferences:
-          - "quay.io/cnuland/hello-chris*"
-          attestors:
-            - entries:
-                - keys:
-                    publicKeys: |
-                      -----BEGIN PUBLIC KEY-----
-                      MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpQxzkDKX4H6W0HkJZlmKjSQ4o+KH
-                      8aVqX87z+pU0lMWlvrAg+eJcK357ShgF6kDosHWmvBxyN6C6M4qN31sLDg==
-                      -----END PUBLIC KEY-----
-      mutate: {}
-      validate: {}
-      exclude:
-        resources: {}
-      generate:
-        clone: {}
-        cloneList: {}
+      - imageReferences:
+        - "ghcr.io/kyverno/test-verify-image*"
+        attestors:
+        - count: 1
+          entries:
+          - keys:
+              publicKeys: |-
+                -----BEGIN PUBLIC KEY-----
+                MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpQxzkDKX4H6W0HkJZlmKjSQ4o+KH
+                8aVqX87z+pU0lMWlvrAg+eJcK357ShgF6kDosHWmvBxyN6C6M4qN31sLDg==
+                -----END PUBLIC KEY-----
