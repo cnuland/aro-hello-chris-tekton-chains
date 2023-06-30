@@ -1,10 +1,10 @@
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: check-image
   namespace: hello-chris
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
     policies.kyverno.io/title: Verify Image
     policies.kyverno.io/category: Software Supply Chain Security, EKS Best Practices

@@ -1,7 +1,8 @@
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: restrict-registries
+  namespace: hello-chris
   annotations:
     argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
@@ -19,8 +20,6 @@ spec:
       - resources:
           kinds:
           - Pod
-          namespaces:
-          - "hello-chris"
     validate:
       message: "Image registry not whitelisted"
       pattern:

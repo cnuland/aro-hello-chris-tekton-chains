@@ -64,20 +64,12 @@ oc delete pod <pod name> -n openshift-pipelines
 1) generate keypair. IMPORTANT - the secret generated below is not in the correct format and needs to be modified before Chains can use it.
 
 ```
- cosign generate-key-pair k8s://openshift-pipelines/signing-secrets
+ cosign generate-key-pair
 ```
 
-2) Retrieve the private key
+2) The cosign.key file needs to be modified so that the ENCRYPTION is of type COSIGN and not SIGSTORE
 
-```
-oc get secret -n ${NAMESPACE} signing-secrets -o jsonpath='{.data.cosign\.key}' | base64 -d > cosign.key
-```
-
-3) The cosign.key file needs to be modified so that the ENCRYPTION is of type COSIGN and not SIGSTORE
-
-4) delete the existing private key `oc delete secret signing-secrets -n openshift-pipelines`
-
-5) Create the secret with the correct formatting
+3) Create the secret with the correct formatting
 ```
 oc create secret generic signing-secrets --from-file=cosign.key=cosign.key --from-literal=cosign.password=<your cosign password> --from-literal=cosign.pub=cosign.pub -n openshift-pipelines
 ```
