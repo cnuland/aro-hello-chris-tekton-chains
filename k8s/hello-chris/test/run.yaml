@@ -3,6 +3,9 @@ kind: PipelineRun
 metadata:
   name: hello-chris-test
   namespace: hello-chris
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
 spec:
   serviceAccountName: pipeline
   pipelineRef:
@@ -13,7 +16,7 @@ spec:
   - name: deployment-name
     value: "hello-chris"
   - name: git-url
-    value: "https://github.com/cnuland/hello-chris-tekton-chains.git"
+    value: "https://github.com/cnuland/aro-hello-chris-tekton-chains.git"
   - name: git-revision
     value: "main"
   - name: IMAGE

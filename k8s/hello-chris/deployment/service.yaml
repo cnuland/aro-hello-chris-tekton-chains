@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/component: hello-chris
     app.kubernetes.io/instance: hello-chris
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "4"
     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
   name: hello-chris
   namespace: hello-chris

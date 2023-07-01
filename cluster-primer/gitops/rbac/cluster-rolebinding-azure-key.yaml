@@ -16,3 +16,9 @@ subjects:
   - kind: ServiceAccount
     name: csi-secrets-store-provider-azure
     namespace: k8s-secrets-store-csi
+  - kind: ServiceAccount
+    name: kyverno
+    namespace: kyverno
+  - kind: ServiceAccount
+    name: kyverno-cleanup-controller
+    namespace: kyverno
