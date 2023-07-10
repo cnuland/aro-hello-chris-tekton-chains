@@ -18,3 +18,4 @@ resources:
 - gitops/rbac/cluster-role-priviledged.yaml
 - gitops/rbac/cluster-rolebinding-azure-key.yaml
 - gitops/rbac/cluster-rolebinding-kyverno.yaml
+- ignored/azure-secret.yaml
