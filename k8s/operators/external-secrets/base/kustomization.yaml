@@ -6,3 +6,4 @@ resources:
   - external-secrets.yaml
   - secret-store.yaml
   - external-secret.yaml
+  - config.yaml
