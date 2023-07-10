@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
 - namespace/openshift-gitops-operator.yaml
 - namespace/k8s-secrets.yaml
+- namespace/external-secrets.yaml
 - operator/openshift-gitops-operator.yaml
 - gitops/app/hello-chris.yaml
 - gitops/infra/infra-helm.yaml
@@ -11,7 +12,9 @@ resources:
 - gitops/infra/pipelines.yaml
 - gitops/infra/infra-secrets.yaml
 - gitops/infra/azure-key.yaml
+- gitops/infra/external-secrets.yaml
 - gitops/rbac/cluster-role-gitops.yaml
 - gitops/rbac/cluster-rolebinding-gitops.yaml
-- gitops/rbac/cluster-role-azure-key.yaml
+- gitops/rbac/cluster-role-priviledged.yaml
 - gitops/rbac/cluster-rolebinding-azure-key.yaml
+- gitops/rbac/cluster-rolebinding-kyverno.yaml
