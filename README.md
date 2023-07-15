@@ -41,24 +41,6 @@ oc patch serviceaccount kyverno -p "{\"imagePullSecrets\": [{\"name\": \"dockerc
 
 ```
 
-* Modify Tekton Chains Config
-Make sure to modify the the tekton chains config found in the openshift-pipelines namespace.
-`oc edit cm chains-config -n openshift-pipelines'
-
-```
-data:
-  artifacts.oci.signer: cosign
-  artifacts.taskrun.format: in-toto
-  artifacts.taskrun.storage: oci
-  transparency.enabled: "true"
-```
-
-delete the tekton-chains-controller pod found in openshift-pipelines namespace
-```
-oc get pods -n openshift-pipelines | grep chains
-oc delete pod <pod name> -n openshift-pipelines
-```
-
 * Install [cosign](https://docs.sigstore.dev/cosign/installation/) on your machine to generate the necessary keypairs.
 
 1) generate keypair. IMPORTANT - the secret generated below is not in the correct format and needs to be modified before Chains can use it.
