@@ -2,7 +2,8 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: viewer-rolebinding
-spec:
+spec: 
+  validationFailureAction: enforce
   rules:
   - name: viewer-rolebinding
     match:
