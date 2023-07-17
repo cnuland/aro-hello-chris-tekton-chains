@@ -3,6 +3,7 @@ kind: ClusterPolicy
 metadata:
   name: admin-rolebinding
 spec:
+  validationFailureAction: enforce
   rules:
   - name: admin-rolebinding
     match:
@@ -21,7 +22,7 @@ spec:
       data:  
         subjects:
         - kind: Group
-          name: "{{ request.object.metadata.labels.admin }}"
+          name: "{{request.object.metadata.labels.admin}}"
           apiGroup: rbac.authorization.k8s.io
         roleRef:
           kind: ClusterRole
