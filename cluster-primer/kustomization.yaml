@@ -14,6 +14,7 @@ resources:
 - gitops/infra/azure-key.yaml
 - gitops/infra/external-secrets.yaml
 - gitops/infra/policies.yaml
+- gitops/infra/onboarding.yaml
 - gitops/rbac/cluster-role-gitops.yaml
 - gitops/rbac/cluster-rolebinding-gitops.yaml
 - gitops/rbac/cluster-role-priviledged.yaml
