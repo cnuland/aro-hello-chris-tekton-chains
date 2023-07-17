@@ -10,5 +10,5 @@ metadata:
     secrets: hello-world
     admin: admin
     viewer: test
-    enfroced: "true"
+    enforced: "true"
 spec:
