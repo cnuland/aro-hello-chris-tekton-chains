@@ -7,13 +7,12 @@ spec:
   rules:
   - name: admin-rolebinding
     match:
-      any:
-      - resources:
-          kinds:
-          - Namespace
-          selector:
-            matchLabels:
-              enforced: "true"
+    - resources:
+        kinds:
+        - Namespace
+        selector:
+          matchLabels:
+            enforced: "true"
     generate:
       kind: RoleBinding
       apiVersion: rbac.authorization.k8s.io/v1
