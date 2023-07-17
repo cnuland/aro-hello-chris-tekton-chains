@@ -21,7 +21,7 @@ spec:
       data:  
         subjects:
         - kind: Group
-          name: {{ request.object.metadata.labels.admin }}
+          name: "{{ request.object.metadata.labels.admin }}"
           apiGroup: rbac.authorization.k8s.io
         roleRef:
           kind: ClusterRole

@@ -21,7 +21,7 @@ spec:
       data:  
         subjects:
         - kind: Group
-          name: {{ request.object.metadata.labels.viewer }}
+          name: "{{ request.object.metadata.labels.viewer }}"
           apiGroup: rbac.authorization.k8s.io
         roleRef:
           kind: ClusterRole
