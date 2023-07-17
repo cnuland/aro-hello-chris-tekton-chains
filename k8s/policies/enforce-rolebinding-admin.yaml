@@ -7,7 +7,7 @@ spec:
   rules:
   - name: admin-rolebinding
     match:
-    - resources:
+      resources:
         kinds:
         - Namespace
         selector:

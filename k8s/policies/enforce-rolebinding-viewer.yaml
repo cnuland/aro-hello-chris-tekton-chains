@@ -7,7 +7,7 @@ spec:
   rules:
   - name: viewer-rolebinding
     match:
-    - resources:
+      resources:
         kinds:
         - Namespace
         selector:
