@@ -10,9 +10,9 @@ spec:
       resources: 
         kinds:
         - Namespace
-    selector:
-      matchLabels:
-        enforced: "true"
+        selector:
+          matchLabels:
+            enforced: "true"
     generate:
       kind: NetworkPolicy
       name: default-deny
