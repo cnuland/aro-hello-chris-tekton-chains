@@ -1,10 +1,10 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: steven-rolebinding
+  name: admin-rolebinding
 spec:
   rules:
-  - name: steven-rolebinding
+  - name: admin-rolebinding
     match:
       any:
       - resources:
