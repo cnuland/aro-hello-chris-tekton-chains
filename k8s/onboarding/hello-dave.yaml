@@ -11,5 +11,5 @@ metadata:
     admin: admin
     viewer: test
     enforced: "true"
-
+    size: small
 spec:

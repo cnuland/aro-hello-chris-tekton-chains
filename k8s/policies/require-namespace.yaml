@@ -1,8 +1,7 @@
 apiVersion: kyverno.io/v1
-kind: Policy
+kind: ClusterPolicy
 metadata:
   name: require-tekton-namespace-pipelinerun
-  namespace: hello-chris
   annotations:
     argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
@@ -21,8 +20,7 @@ spec:
   rules:
   - name: check-pipelinerun-namespace
     match:
-      any:
-      - resources:
+      resources:
           kinds:
           - PipelineRun
     preconditions:
