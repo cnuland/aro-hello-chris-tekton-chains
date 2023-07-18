@@ -1,0 +1,49 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    machine.openshift.io/cluster-api-cluster: <infrastructure_id> 
+    machine.openshift.io/cluster-api-machine-role: infra 
+    machine.openshift.io/cluster-api-machine-type: infra 
+  name: <infrastructure_id>-infra 
+  namespace: openshift-machine-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: <infrastructure_id> 
+      machine.openshift.io/cluster-api-machineset: <infrastructure_id>-infra 
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: <infrastructure_id> 
+        machine.openshift.io/cluster-api-machine-role: infra 
+        machine.openshift.io/cluster-api-machine-type: infra
+        machine.openshift.io/cluster-api-machineset: <infrastructure_id>-infra
+    spec:
+      metadata:
+        labels:
+          node-role.kubernetes.io/infra: ""
+      providerSpec:
+        value:
+          osDisk:
+            diskSettings: {}
+            diskSizeGB: 128
+            managedDisk:
+              storageAccountType: Premium_LRS
+            osType: Linux
+          networkResourceGroup: <network-group>
+          publicLoadBalancer: <load-balancer>
+          userDataSecret:
+            name: worker-user-data
+          vnet: <vnet>
+          credentialsSecret:
+            name: azure-cloud-credentials
+            namespace: openshift-machine-api
+          zone: '3'
+          resourceGroup: <resource-group>
+          kind: AzureMachineProviderSpec
+          location: eastus
+          vmSize: Standard_D4s_v3
