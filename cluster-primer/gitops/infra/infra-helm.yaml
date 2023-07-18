@@ -11,7 +11,9 @@ spec:
   project: default
   source:
     helm:
-      parameters: []
+      parameters:
+      - name: "machineSetSpec.resourceGroup"
+        value: "aro-aviek74d"
     chart: aro-machinesets
     repoURL: https://rh-mobb.github.io/helm-charts/
     targetRevision: 0.1.2
