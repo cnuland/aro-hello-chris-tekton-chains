@@ -51,10 +51,10 @@ spec:
       patchesJson6902: |-
         - op: replace
           path: /metadata
-          value: {{ replace_all(to_string(request.object.metadata),'INFRA', infraid) }}
+          value: {{ replace_all(to_string(request.object.metadata),'infraname', infraid) }}
         - op: replace
           path: /spec
-          value: {{ replace_all(to_string(request.object.spec),'INFRA', infraid) }}
+          value: {{ replace_all(to_string(request.object.spec),'infraname', infraid) }}
         - op: replace
           path: /spec.template.spec.providerSpec.value.networkResourceGroup
           value: {{ networkgroup }}
