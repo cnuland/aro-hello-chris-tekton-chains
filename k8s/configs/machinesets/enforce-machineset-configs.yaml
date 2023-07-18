@@ -37,35 +37,35 @@ spec:
     - name: machineset
       apiCall:
         urlPath: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/{{cluster}}-worker-eastus1
-    - name: resource-group
+    - name: resourcegroup
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.resourceGroup
     - name: vnet
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.vnet
-    - name: load-balancer
+    - name: loadbalancer
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.publicLoadBalancer
-    - name: network-group
+    - name: networkgroup
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.networkResourceGroup
     mutate:
       patchesJson6902: |-
         - op: replace
           path: /metadata
-          value: {{ replace_all(to_string(request.object.metadata),'<infrastructure_id>', infraid) }}
+          value: {{ replace_all(to_string(request.object.metadata),'INFRA', infraid) }}
         - op: replace
           path: /spec
-          value: {{ replace_all(to_string(request.object.spec),'<infrastructure_id>', infraid) }}
+          value: {{ replace_all(to_string(request.object.spec),'INFRA', infraid) }}
         - op: replace
-          path: /spec
-          value: {{ replace_all(to_string(request.object.spec.template.spec.providerSpec.value),'<network-group>', network-group) }}
+          path: /spec.template.spec.providerSpec.value.networkResourceGroup
+          value: {{ networkgroup }}
         - op: replace
-          path: /spec
-          value: {{ replace_all(to_string(request.object.spec.template.spec.providerSpec.value),'<vnet>', vnet) }}
+          path: /spec.template.spec.providerSpec.value.vnet
+          value: {{ vnet }}
         - op: replace
-          path: /spec
-          value: {{ replace_all(to_string(request.object.spec.template.spec.providerSpec.value),'<load-balancer>', load-balancer) }}
+          path: /spec.template.spec.providerSpec.value.publicLoadBalancer
+          value: {{ loadbalancer }}
         - op: replace
-          path: /spec
-          value: {{ replace_all(to_string(request.object.spec.template.spec.providerSpec.value),'<resource-group>', resource-group) }}
+          path: /spec.template.spec.providerSpec.value.resourceGroup
+          value: {{ resourcegroup }}

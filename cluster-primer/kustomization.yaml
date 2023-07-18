@@ -7,7 +7,7 @@ resources:
 - namespace/external-secrets.yaml
 - operator/openshift-gitops-operator.yaml
 - gitops/app/hello-chris.yaml
-- gitops/infra/infra-helm.yaml
+- gitops/infra/infra-machinesets.yaml
 - gitops/infra/kyverno.yaml
 - gitops/infra/pipelines.yaml
 - gitops/infra/infra-secrets.yaml
