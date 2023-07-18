@@ -52,12 +52,6 @@ spec:
     mutate:
       patchesJson6902: |-
         - op: replace
-          path: /metadata
-          value: {{ replace_all(to_string(request.object.metadata),'INFRA', infraid) }}
-        - op: replace
-          path: /spec
-          value: {{ replace_all(to_string(request.object.spec),'INFRA', infraid) }}
-        - op: replace
           path: /spec.template.spec.providerSpec.value.networkResourceGroup
           value: {{ networkgroup }}
         - op: replace
@@ -69,3 +63,15 @@ spec:
         - op: replace
           path: /spec.template.spec.providerSpec.value.resourceGroup
           value: {{ resourcegroup }}
+        - op: replace 
+          path: /spec/selector/matchLabels/machine.openshift.io/cluster-api-cluster
+          value: {{ infraid }}
+        - op: replace 
+          path: /spec/template/metadata/labels/cluster-api-cluster
+          value: {{ infraid }}
+        - op: replace 
+          path: /spec/selector/matchLabels/machine.openshift.io/cluster-api-machineset
+          value: {{ infraid }}        
+        - op: replace 
+          path: /spec/template/metadata/labels/cluster-api-machineset
+          value: {{ infraid }}
