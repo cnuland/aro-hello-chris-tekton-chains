@@ -4,7 +4,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
   labels:
-    machine.openshift.io/cluster-api-cluster: infraname 
+    machine.openshift.io/cluster-api-cluster: "infraname"
     machine.openshift.io/cluster-api-machine-role: infra 
     machine.openshift.io/cluster-api-machine-type: infra 
   name: infraname-infra 
@@ -13,15 +13,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      machine.openshift.io/cluster-api-cluster: infraname
-      machine.openshift.io/cluster-api-machineset: infraname
+      machine.openshift.io/cluster-api-cluster: "infraname"
+      machine.openshift.io/cluster-api-machineset: "infraname-infra"
   template:
     metadata:
       labels:
-        machine.openshift.io/cluster-api-cluster: infraname
+        machine.openshift.io/cluster-api-cluster: "infraname"
         machine.openshift.io/cluster-api-machine-role: infra 
         machine.openshift.io/cluster-api-machine-type: infra
-        machine.openshift.io/cluster-api-machineset: infraname-infra
+        machine.openshift.io/cluster-api-machineset: "infraname-infra"
     spec:
       metadata:
         labels:
