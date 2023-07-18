@@ -47,3 +47,4 @@ spec:
           kind: AzureMachineProviderSpec
           location: eastus
           vmSize: Standard_D4s_v3
+          subnet: cluster-aro-machine-subnet-eastus
