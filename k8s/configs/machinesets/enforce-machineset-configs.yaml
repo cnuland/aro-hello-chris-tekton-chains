@@ -36,7 +36,7 @@ spec:
         jmesPath: cluster.status.infrastructureName
     - name: machineset
       apiCall:
-        urlPath: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/{{cluster}}-worker-eastus1
+        urlPath: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/{{cluster.status.infrastructureName}}-worker-eastus1
     - name: resourcegroup
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.resourceGroup
@@ -50,28 +50,28 @@ spec:
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.networkResourceGroup
     mutate:
-      patchesJson6902: |-
-        - op: replace
-          path: /spec.template.spec.providerSpec.value.networkResourceGroup
-          value: {{ networkgroup }}
-        - op: replace
-          path: /spec.template.spec.providerSpec.value.vnet
-          value: {{ vnet }}
-        - op: replace
-          path: /spec.template.spec.providerSpec.value.publicLoadBalancer
-          value: {{ loadbalancer }}
-        - op: replace
-          path: /spec.template.spec.providerSpec.value.resourceGroup
-          value: {{ resourcegroup }}
-        - op: replace 
-          path: /spec/selector/matchLabels/machine.openshift.io/cluster-api-cluster
-          value: {{ infraid }}
-        - op: replace 
-          path: /spec/template/metadata/labels/cluster-api-cluster
-          value: {{ infraid }}
-        - op: replace 
-          path: /spec/selector/matchLabels/machine.openshift.io/cluster-api-machineset
-          value: {{ infraid }}        
-        - op: replace 
-          path: /spec/template/metadata/labels/cluster-api-machineset
-          value: {{ infraid }}
+      patchStrategicMerge:
+        metadata:
+          name: "{{infraid}}-infra"
+          labels:
+            machine.openshift.io/cluster-api-cluster: "{{infraid}}"
+            machine.openshift.io/cluster-api-machineset: "{{infraid}}-infra"
+        spec:
+          selector:
+            matchLabels:
+              machine.openshift.io/cluster-api-cluster: "{{infraid}}"
+              machine.openshift.io/cluster-api-machineset: "{{infraid}}-infra"
+          template:
+            metadata:
+              labels:
+                machine.openshift.io/cluster-api-cluster: "{{infraid}}"
+                machine.openshift.io/cluster-api-machine-role: infra 
+                machine.openshift.io/cluster-api-machine-type: infra
+                machine.openshift.io/cluster-api-machineset: "{{infraid}}-infra"
+            spec:
+              providerSpec:
+                value:
+                  networkResourceGroup: "{{ networkgroup }}"
+                  vnet: "{{ vnet }}"
+                  publicLoadBalancer: "{{ loadbalancer }}"
+                  resourceGroup: "{{ resourcegroup }}"
