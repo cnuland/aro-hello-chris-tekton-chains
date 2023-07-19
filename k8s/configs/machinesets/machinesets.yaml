@@ -8,7 +8,7 @@ metadata:
     machine.openshift.io/cluster-api-machine-role: infra 
     machine.openshift.io/cluster-api-machine-type: infra 
   name: infraname-infra 
-  namespace: hello-chris
+  namespace: openshift-machine-api
 spec:
   replicas: 1
   selector:
