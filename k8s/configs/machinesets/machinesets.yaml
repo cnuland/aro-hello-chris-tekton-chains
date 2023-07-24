@@ -7,21 +7,21 @@ metadata:
     machine.openshift.io/cluster-api-cluster: infraname
     machine.openshift.io/cluster-api-machine-role: infra 
     machine.openshift.io/cluster-api-machine-type: infra 
-  name: infraname-infra 
+  name: infraname-infra-useast1
   namespace: openshift-machine-api
 spec:
   replicas: 1
   selector:
     matchLabels:
       machine.openshift.io/cluster-api-cluster: infraname
-      machine.openshift.io/cluster-api-machineset: infraname-infra
+      machine.openshift.io/cluster-api-machineset: infraname-infra-useast1
   template:
     metadata:
       labels:
         machine.openshift.io/cluster-api-cluster: infraname
         machine.openshift.io/cluster-api-machine-role: infra 
         machine.openshift.io/cluster-api-machine-type: infra
-        machine.openshift.io/cluster-api-machineset: infraname-infra
+        machine.openshift.io/cluster-api-machineset: infraname-infra-useast1
     spec:
       metadata:
         labels:
@@ -42,7 +42,7 @@ spec:
           credentialsSecret:
             name: azure-cloud-credentials
             namespace: openshift-machine-api
-          zone: '3'
+          zone: '1'
           resourceGroup: <resource-group>
           kind: AzureMachineProviderSpec
           location: eastus
