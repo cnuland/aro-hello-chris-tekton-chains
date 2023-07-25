@@ -52,6 +52,9 @@ spec:
     - name: publicip
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.publicIP
+    - name: image
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.image
     mutate:
       patchStrategicMerge:
         metadata:
@@ -74,6 +77,7 @@ spec:
             spec:
               providerSpec:
                 value:
+                  image: "{{ image }}"
                   publicIP: "{{ publicip }}"
                   networkResourceGroup: "{{ networkgroup }}"
                   vnet: "{{ vnet }}"
