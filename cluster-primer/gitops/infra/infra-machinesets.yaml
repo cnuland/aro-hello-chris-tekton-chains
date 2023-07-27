@@ -27,7 +27,6 @@ spec:
     - spec/template/spec/providerSpec/value/vnet
     - spec/template/spec/providerSpec/value/publicLoadBalancer
     - spec/template/spec/providerSpec/value/resourceGroup
-    - metadata/name
     - spec/template/metadata/labels
     - spec/selector/matchLabels
     - /metadata/labels
