@@ -30,7 +30,6 @@ spec:
     - /spec/template/metadata/labels
     - /spec/selector/matchLabels
     - /metadata/labels
-    - /metadata/name
   project: default
   syncPolicy:
     syncOptions:

@@ -63,22 +63,18 @@ spec:
     mutate:
       patchStrategicMerge:
         metadata:
-          name: "{{infraid}}-infra"
           labels:
             machine.openshift.io/cluster-api-cluster: "{{infraid}}"
-            machine.openshift.io/cluster-api-machineset: "{{infraid}}-infra"
         spec:
           selector:
             matchLabels:
               machine.openshift.io/cluster-api-cluster: "{{infraid}}"
-              machine.openshift.io/cluster-api-machineset: "{{infraid}}-infra"
           template:
             metadata:
               labels:
                 machine.openshift.io/cluster-api-cluster: "{{infraid}}"
                 machine.openshift.io/cluster-api-machine-role: infra 
                 machine.openshift.io/cluster-api-machine-type: infra
-                machine.openshift.io/cluster-api-machineset: "{{infraid}}-infra"
             spec:
               providerSpec:
                 value:
