@@ -3,27 +3,27 @@ kind: MachineSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
-    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook: PostSync  
   labels:
     machine.openshift.io/cluster-api-cluster: infraname
     machine.openshift.io/cluster-api-machine-role: infra 
     machine.openshift.io/cluster-api-machine-type: infra 
     zone: "1"
-  name: infra-useast1
+  name: infraname-infra-useast1
   namespace: openshift-machine-api
 spec:
   replicas: 1
   selector:
     matchLabels:
       machine.openshift.io/cluster-api-cluster: infraname
-      machine.openshift.io/cluster-api-machineset: infra-useast1
+      machine.openshift.io/cluster-api-machineset: infraname-infra-useast1
   template:
     metadata:
       labels:
         machine.openshift.io/cluster-api-cluster: infraname
         machine.openshift.io/cluster-api-machine-role: infra 
         machine.openshift.io/cluster-api-machine-type: infra
-        machine.openshift.io/cluster-api-machineset: infra-useast1
+        machine.openshift.io/cluster-api-machineset: infraname-infra-useast1
     spec:
       metadata:
         labels:
