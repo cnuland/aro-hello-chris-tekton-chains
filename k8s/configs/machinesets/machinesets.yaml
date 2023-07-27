@@ -7,7 +7,8 @@ metadata:
     machine.openshift.io/cluster-api-cluster: infraname
     machine.openshift.io/cluster-api-machine-role: infra 
     machine.openshift.io/cluster-api-machine-type: infra 
-  name: infraname-infra-useast1
+    zone: "1"
+  name: infra-useast1
   namespace: openshift-machine-api
 spec:
   replicas: 1
@@ -48,3 +49,4 @@ spec:
           location: eastus
           vmSize: Standard_D4s_v3
           subnet: cluster-aro-machine-subnet-eastus
+          image: {}

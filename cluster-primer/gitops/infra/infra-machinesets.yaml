@@ -17,9 +17,24 @@ spec:
     targetRevision: HEAD
     directory:
       recurse: false
-  sources: []
+  ignoreDifferences:
+  - group: machine.openshift.io
+    kind: MachineSet
+    jsonPointers:
+    - spec/template/spec/providerSpec/value/image
+    - spec/template/spec/providerSpec/value/publicIP
+    - spec/template/spec/providerSpec/value/networkResourceGroup
+    - spec/template/spec/providerSpec/value/vnet
+    - spec/template/spec/providerSpec/value/publicLoadBalancer
+    - spec/template/spec/providerSpec/value/resourceGroup
+    - metadata/name
+    - spec/template/metadata/labels
+    - spec/selector/matchLabels
+    - /metadata/labels
   project: default
   syncPolicy:
+    syncOptions:
+    - ServerSideApply=true
     automated:
       prune: false
       selfHeal: true
