@@ -33,12 +33,14 @@ spec:
     context:
     - name: cluster
       apiCall:
+        method: GET
         urlPath: /apis/config.openshift.io/v1/infrastructures/cluster
     - name: infraid
       variable:
         jmesPath: cluster.status.infrastructureName
     - name: machineset
       apiCall:
+        method: GET
         urlPath: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/{{cluster.status.infrastructureName}}-worker-eastus1
     - name: resourcegroup
       variable:
