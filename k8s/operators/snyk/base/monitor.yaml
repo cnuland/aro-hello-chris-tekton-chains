@@ -1,0 +1,28 @@
+apiVersion: charts.helm.k8s.io/v1alpha1
+kind: SnykMonitor
+metadata:
+  name: snyk-monitor
+  namespace: openshift-operators
+spec:
+  requests:
+    memory: 400Mi
+  nodeAffinity:
+    disableBetaArchNodeSelector: false
+  initContainerImage:
+    repository: busybox
+    tag: latest
+  limits:
+    memory: 2Gi
+  image:
+    pullPolicy: Always
+    repository: snyk/kubernetes-monitor
+    tag: 1.92.0-ubi8
+  pvc:
+    enabled: false
+    create: false
+    name: snyk-monitor-pvc
+  clusterName: ''
+  integrationApi: ''
+  monitorSecrets: snyk-monitor
+  scope: Cluster
+  temporaryStorageSize: 50Gi
