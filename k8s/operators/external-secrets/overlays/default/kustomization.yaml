@@ -6,10 +6,10 @@ bases:
 - ../../base
 
 patches:
-- patch: |-  
+- patch: |-
     - op: add
-      path: /metadata/labels
-      value: {"secrets": "oauth-app-client-secret"}
+      path: /metadata/labels/secrets
+      value:  "oauth-app-client-secret"
   target:
     kind: Namespace
-    name: openshift-config  # Name of the namespace to update the label against
+    name: openshift-config 
