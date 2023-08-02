@@ -4,3 +4,12 @@ kind: Kustomization
 
 bases:
 - ../../base
+
+patches:
+- patch: |-  
+    - op: add
+      path: /metadata/labels
+      value: {"secrets": "oauth-app-client-secret"}
+  target:
+    kind: Namespace
+    name: openshift-config  # Name of the namespace to update the label against
