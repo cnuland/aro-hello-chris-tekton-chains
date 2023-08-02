@@ -5,11 +5,11 @@ kind: Kustomization
 bases:
 - ../../base
 
-patches:
-- patch: |-
-    - op: add
-      path: /metadata/annotations/secrets
-      value:  "oauth-app-client-secret"
-  target:
-    kind: Namespace
-    name: openshift-config 
+patchesStrategicMerge:
+- |-
+  apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: openshift-gitops
+    labels:
+      secret: "oauth-app-client-secret"
