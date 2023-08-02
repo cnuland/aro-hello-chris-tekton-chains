@@ -7,3 +7,4 @@ resources:
   - secret-store.yaml
   - external-secret.yaml
   - config.yaml
+  - openshift-config.yaml
