@@ -3,6 +3,6 @@ kind: Namespace
 metadata:
   name: openshift-config 
   labels:
-    secret: "oauth-app-client-secret"
+    secret: "hello-world-es"
   annotations:
     argocd.argoproj.io/sync-options: ServerSideApply=true
