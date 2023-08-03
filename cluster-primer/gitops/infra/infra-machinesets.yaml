@@ -34,6 +34,7 @@ spec:
   syncPolicy:
     syncOptions:
     - ServerSideApply=true
+    - RespectIgnoreDifferences=true
     automated:
       prune: false
       selfHeal: false

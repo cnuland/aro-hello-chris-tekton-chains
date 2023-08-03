@@ -10,7 +10,6 @@ resources:
 - gitops/infra/infra-machinesets.yaml
 - gitops/infra/kyverno.yaml
 - gitops/infra/pipelines.yaml
-- gitops/infra/snyk.yaml
 - gitops/infra/infra-secrets.yaml
 - gitops/infra/azure-key.yaml
 - gitops/infra/external-secrets.yaml
