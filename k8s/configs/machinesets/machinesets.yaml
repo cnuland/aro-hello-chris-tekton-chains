@@ -3,7 +3,6 @@ kind: MachineSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
-    argocd.argoproj.io/sync-options: ServerSideApply=true 
   labels:
     machine.openshift.io/cluster-api-cluster: infraname
     machine.openshift.io/cluster-api-machine-role: infra 
