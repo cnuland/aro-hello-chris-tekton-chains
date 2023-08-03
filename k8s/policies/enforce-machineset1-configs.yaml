@@ -1,0 +1,86 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: machineset-configs
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    policies.kyverno.io/title: Inject Infrastructure Name
+    policies.kyverno.io/category: OpenShift
+    policies.kyverno.io/severity: medium
+    kyverno.io/kyverno-version: 1.10.0
+    policies.kyverno.io/minversion: 1.10.0
+    kyverno.io/kubernetes-version: "1.26"
+    policies.kyverno.io/subject: MachineSet
+    policies.kyverno.io/description: >-
+      A required component of a MachineSet is the infrastructure name which is a random string
+      created in a separate resource. It can be tedious or impossible to know this for each
+      MachineSet created. This policy fetches the value of the infrastructure name from the
+      Cluster resource and replaces all instances of TEMPLATE in a MachineSet with that name.
+spec:
+  schemaValidation: false
+  rules:
+  - name: replace-template
+    match:
+      any:
+      - resources:
+          kinds:
+          - machine.openshift.io/v1beta1/MachineSet
+          operations:
+          - CREATE
+          selector:
+            matchLabels:
+              zone: "1"
+    context:
+    - name: cluster
+      apiCall:
+        method: GET
+        urlPath: /apis/config.openshift.io/v1/infrastructures/cluster
+    - name: infraid
+      variable:
+        jmesPath: cluster.status.infrastructureName
+    - name: machineset
+      apiCall:
+        method: GET
+        urlPath: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/{{cluster.status.infrastructureName}}-worker-eastus1
+    - name: resourcegroup
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.resourceGroup
+    - name: vnet
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.vnet
+    - name: loadbalancer
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.publicLoadBalancer
+    - name: networkgroup
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.networkResourceGroup
+    - name: publicip
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.publicIP
+    - name: image
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.image
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          labels:
+            machine.openshift.io/cluster-api-cluster: "{{infraid}}"
+        spec:
+          selector:
+            matchLabels:
+              machine.openshift.io/cluster-api-cluster: "{{infraid}}"
+          template:
+            metadata:
+              labels:
+                machine.openshift.io/cluster-api-cluster: "{{infraid}}"
+                machine.openshift.io/cluster-api-machine-role: infra 
+                machine.openshift.io/cluster-api-machine-type: infra
+            spec:
+              providerSpec:
+                value:
+                  image: "{{ image }}"
+                  publicIP: "{{ publicip }}"
+                  networkResourceGroup: "{{ networkgroup }}"
+                  vnet: "{{ vnet }}"
+                  publicLoadBalancer: "{{ loadbalancer }}"
+                  resourceGroup: "{{ resourcegroup }}"
