@@ -4,4 +4,4 @@ kind: Kustomization
 
 resources:
   - operatorgroup.yaml
-  - sunscription.yaml
+  - subscription.yaml
