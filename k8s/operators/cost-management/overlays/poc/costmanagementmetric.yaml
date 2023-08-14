@@ -1,0 +1,31 @@
+kind: CostManagementMetricsConfig
+apiVersion: costmanagement-metrics-cfg.openshift.io/v1beta1
+metadata:
+  name: costmanagementmetricscfg-sample-v1beta1
+  namespace: costmanagement-metrics-operator
+spec:
+  authentication:
+    type: token
+  packaging:
+    max_reports_to_store: 30 ## Number of reports to store 
+    max_size_MB: 100 ## Max size of file to be uploaded
+  prometheus_config:
+    collect_previous_data: true
+    context_timeout: 120
+    disable_metrics_collection_cost_management: false
+    disable_metrics_collection_resource_optimization: false
+  source:
+    check_cycle: 1440  ## Default is 24 hrs
+    create_source: true
+    name: <customer-name>-cost-source
+  upload:
+    upload_cycle: 360 ## 6hrs upload cycle
+    upload_toggle: true
+    ## The costmanagement-metrics-operator creates one 
+    ## report every 360 minutes by default. Therefore, the 
+    ## default value of 30 reports and 360 minutes gives 
+    ## you 7.5 days of reports.
+
+    ## For restricted netword, replace source & authentication children with {}
+    ##https://access.redhat.com/documentation/en-us/cost_management_service/2023/html-single/adding_an_openshift_container_platform_source_to_cost_management/index#:~:text=Log%20in%20to%20the%20OpenShift,metrics%2Doperator%20namespace%20for%20installation.
+

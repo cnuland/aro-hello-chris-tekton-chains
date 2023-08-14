@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  generateName: costmanagement-metrics-operator-
+  name: costmanagement-metrics-operator-m7tsl
+  namespace: costmanagement-metrics-operator
+spec:
+  targetNamespaces:
+  - costmanagement-metrics-operator
+  upgradeStrategy: Default
