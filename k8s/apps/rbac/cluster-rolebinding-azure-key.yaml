@@ -1,0 +1,24 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+  name: azure-key-allow-priviledged-clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: allow-priviledged-scc
+  # name: openshift-gitops-argocd-extended-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: secrets-store-csi-driver
+    namespace: k8s-secrets-store-csi
+  - kind: ServiceAccount
+    name: csi-secrets-store-provider-azure
+    namespace: k8s-secrets-store-csi
+  - kind: ServiceAccount
+    name: kyverno
+    namespace: kyverno
+  - kind: ServiceAccount
+    name: kyverno-cleanup-controller
+    namespace: kyverno

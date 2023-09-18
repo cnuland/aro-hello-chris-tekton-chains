@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- infra/infra-machinesets.yaml
+- infra/kyverno.yaml
+- infra/pipelines.yaml
+- infra/infra-secrets.yaml
+- infra/azure-key.yaml
+- infra/external-secrets.yaml
+- argocd.yaml
+- infra/policies.yaml
+- infra/onboarding.yaml
+- rbac/cluster-role-gitops.yaml
+- rbac/cluster-rolebinding-gitops.yaml
+- rbac/cluster-role-priviledged.yaml
+- rbac/cluster-rolebinding-azure-key.yaml
+- rbac/cluster-rolebinding-kyverno.yaml

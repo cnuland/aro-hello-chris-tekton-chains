@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: azure-key
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: k8s-secrets-store-csi
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      parameters:
+      - name: "linux.providersDir"
+        value: "/var/run/secrets-store-csi-providers"
+      - name: "linux.privileged"
+        value: "true"
+      - name: "secrets-store-csi-driver.install"
+        value: "false"
+    chart: csi-secrets-store-provider-azure
+    repoURL: https://azure.github.io/secrets-store-csi-driver-provider-azure/charts
+    targetRevision: 1.4.3
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
