@@ -41,7 +41,7 @@ spec:
     - name: machineset
       apiCall:
         method: GET
-        urlPath: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/{{cluster.status.infrastructureName}}-worker-{{cluster.spec.location}}1
+        urlPath: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/{{cluster.status.infrastructureName}}-worker-eastus21
     - name: resourcegroup
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.resourceGroup
