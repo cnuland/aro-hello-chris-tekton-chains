@@ -6,19 +6,7 @@ resources:
 - namespace/k8s-secrets.yaml
 - namespace/external-secrets.yaml
 - operator/openshift-gitops-operator.yaml
+- gitops/app-of-apps.yaml
 - gitops/app/hello-chris.yaml
-- gitops/infra/infra-machinesets.yaml
-- gitops/infra/kyverno.yaml
-- gitops/infra/pipelines.yaml
-- gitops/infra/infra-secrets.yaml
-- gitops/infra/azure-key.yaml
-- gitops/infra/external-secrets.yaml
-- gitops/infra/policies.yaml
-- gitops/infra/onboarding.yaml
-- gitops/rbac/cluster-role-gitops.yaml
-- gitops/rbac/cluster-rolebinding-gitops.yaml
-- gitops/rbac/cluster-role-priviledged.yaml
-- gitops/rbac/cluster-rolebinding-azure-key.yaml
-- gitops/rbac/cluster-rolebinding-kyverno.yaml
 - ignored/azure-secret.yaml
 
