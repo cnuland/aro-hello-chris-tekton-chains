@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: app-of-apps
   namespace: openshift-gitops
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 spec:
   destination:
     name: ''

@@ -5,9 +5,6 @@ resources:
 - infra/infra-machinesets.yaml
 - infra/kyverno.yaml
 - infra/pipelines.yaml
-- infra/infra-secrets.yaml
-- infra/azure-key.yaml
-- infra/external-secrets.yaml
 - argocd.yaml
 - infra/policies.yaml
 - infra/onboarding.yaml
