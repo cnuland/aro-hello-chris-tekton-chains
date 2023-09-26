@@ -3,10 +3,27 @@ kind: ArgoCD
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: Validate=false,ServerSideApply=true
+    argocd.argoproj.io/sync-wave: "0"
   name: openshift-gitops
   namespace: openshift-gitops
 spec:
   resourceHealthChecks:
+  - group: kyverno.io
+    kind: ClusterPolicy
+    check: |
+      hs = {}
+        if obj.status ~= nil and obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready"
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+        hs.status = "Progressing"
+        hs.message = "Waiting for ClusterPolicy to be ready."
+        return hs
   - group: argoproj.io
     kind: Application
     check: |
