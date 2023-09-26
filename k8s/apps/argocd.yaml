@@ -12,6 +12,8 @@ spec:
     kind: ClusterPolicy
     check: |
       hs = {}
+      hs.status = "Progressing"
+      hs.message = "Waiting for ClusterPolicy to be ready."
       if obj.status ~= nil and obj.status.conditions ~= nil then
         for i, condition in ipairs(obj.status.conditions) do
           if condition.type == "Ready" then
@@ -21,8 +23,6 @@ spec:
           end
         end
       end
-      hs.status = "Progressing"
-      hs.message = "Waiting for ClusterPolicy to be ready."
       return hs
   - group: argoproj.io
     kind: Application
