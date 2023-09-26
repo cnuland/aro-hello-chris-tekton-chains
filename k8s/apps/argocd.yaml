@@ -3,6 +3,7 @@ kind: ArgoCD
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: Validate=false,ServerSideApply=true
+    argocd.argoproj.io/sync-wave: "0"
   name: openshift-gitops
   namespace: openshift-gitops
 spec:
