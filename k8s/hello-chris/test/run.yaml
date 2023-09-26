@@ -22,6 +22,8 @@ spec:
   - name: IMAGE
     value: "quay.io/cnuland/hello-chris"
   - name: TLSVERIFY
+    value: "false"
+  - name: NO_PROXY
     value: "true"
   - name: working-dir
     value: "app"
