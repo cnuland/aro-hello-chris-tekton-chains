@@ -15,7 +15,6 @@ spec:
         for i, condition in ipairs(obj.status.conditions) do
           if condition.status == "True" then
             hs.status = "Healthy"
-            hs.message = condition.message
             return hs
           end
         end
