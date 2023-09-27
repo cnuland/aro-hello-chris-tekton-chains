@@ -60,6 +60,12 @@ spec:
     - name: image
       variable:
         jmesPath: machineset.spec.template.spec.providerSpec.value.image
+    - name: subnet
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.subnet
+    - name: location
+      variable:
+        jmesPath: machineset.spec.template.spec.providerSpec.value.location 
     mutate:
       patchStrategicMerge:
         metadata:
@@ -84,3 +90,5 @@ spec:
                   vnet: "{{ vnet }}"
                   publicLoadBalancer: "{{ loadbalancer }}"
                   resourceGroup: "{{ resourcegroup }}"
+                  subnet: "{{ subnet }}"
+                  location: "{{ location }}"
