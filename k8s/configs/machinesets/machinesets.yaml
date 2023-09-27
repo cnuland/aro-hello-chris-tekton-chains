@@ -45,6 +45,7 @@ spec:
             name: azure-cloud-credentials
             namespace: openshift-machine-api
           zone: '1'
+          publicIP: false
           resourceGroup: <resource-group>
           kind: AzureMachineProviderSpec
           location: <location>
